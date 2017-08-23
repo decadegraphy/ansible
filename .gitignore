@@ -1,0 +1,4 @@
+*.retry
+*.swp
+*.pyc
+local.yaml

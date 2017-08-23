@@ -1,0 +1,4 @@
+- hosts: "{{ target }}"
+  roles:
+    - role: "{{ role }}"
+  serial: "{{ serial|default('100%') }}"
