@@ -1,0 +1,24 @@
+- name: Sanity check
+  fail:
+    msg: "Unsupported distribtuion version"
+  when: ansible_distribution != "Ubuntu" or ansible_distribution_version != "16.04"
+
+# Ubuntu images from most cloud providers have a default user "ubuntu". Here we
+# ensure the user exists and occupies UID 1000, in case we switch to an odd
+# provider.
+- name: Ensure the default user exists
+  user:
+    name: ubuntu
+    uid: 1000
+    groups: sudo
+    append: yes
+
+- name: Purge unneeded services
+  apt:
+    name: "{{ item }}"
+    state: absent
+    purge: yes
+    autoremove: yes
+  with_items:
+    - "lxd"
+    - "snapd"
