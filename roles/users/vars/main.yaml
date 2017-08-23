@@ -1,0 +1,9 @@
+users:
+  - uid: 10001
+    username: perchouli
+    pubkey: "https://github.com/perchouli.keys"
+    groups: sudo
+  - uid: 10002
+    username: wzyboy
+    pubkey: "https://github.com/wzyboy.keys"
+    groups: sudo

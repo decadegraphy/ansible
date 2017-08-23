@@ -1,0 +1,31 @@
+- name: Create users
+  user:
+    name: "{{ item.username }}"
+    uid: "{{ item.uid }}"
+    shell: /bin/bash
+    groups: "{{ item.groups|default('') }}"
+    append: yes
+  with_items:
+    - "{{ users }}"
+
+- name: Add authorized_keys
+  authorized_key:
+    user: "{{ item.username }}"
+    key: "{{ item.pubkey }}"
+  with_items:
+    - "{{ users }}"
+
+- name: Allow sudo group to sudo without password
+  template:
+    src: 90-sudo-nopasswd.j2
+    dest: /etc/sudoers.d/90-sudo-nopasswd
+    validate: visudo -c -f %s
+
+# Note: Debian / Ubuntu does not create the "wheel" group by default. Requiring
+# pam_wheel essentially disables anyone to su with the password of the target
+# user. But we do not set user passwords, nor allow password logins, anyway.
+- name: Only allow wheel group to su
+  lineinfile:
+    dest: /etc/pam.d/su
+    regexp: "auth\\s+required\\s+pam_wheel\\.so$"
+    line: "auth required pam_wheel.so"
