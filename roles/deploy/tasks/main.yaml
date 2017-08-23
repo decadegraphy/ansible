@@ -1,0 +1,17 @@
+- name: Create a non-privileged user
+  user:
+    name: "{{ deploy_user }}"
+    uid: "{{ deploy_uid }}"
+
+- name: Create systemd user directory strucuture
+  file:
+    path: "{{ deploy_home }}/.config/systemd/user"
+    state: directory
+    recurse: yes
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_group }}"
+
+- name: Enable automatic start-up for systemd user instances
+  command: "loginctl enable-linger {{ deploy_user }}"
+  args:
+    creates: "/var/lib/systemd/linger/{{ deploy_user }}"
