@@ -27,3 +27,11 @@
   with_items:
     - "20auto-upgrades"
     - "50unattended-upgrades"
+
+- name: Disable SSH password login
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: '^#?PasswordAuthentication '
+    line: 'PasswordAuthentication no'
+  notify:
+    - "restart sshd"
