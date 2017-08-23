@@ -1,0 +1,32 @@
+# vim: ft=nginx:
+
+server {
+  listen 80;
+  server_name decadegraphy.com www.decadegraphy.com;
+
+  include conf.d/log.conf;
+
+  location / {
+    return 301 https://$host$request_uri;
+  }
+}
+
+server {
+  listen 443 ssl http2;
+  server_name decadegraphy.com www.decadegraphy.com;
+
+{% if ansible_bios_version == "VirtualBox" %}
+  ssl_certificate {{ nginx_snakeoil_crt }};
+  ssl_certificate_key {{ nginx_snakeoil_key }};
+{% else %}
+  ssl_certificate certs/decadegraphy.com.crt;
+  ssl_certificate_key certs/decadegraphy.com.key;
+{% endif %}
+
+  include conf.d/log.conf;
+  include conf.d/proxy.conf;
+
+  location / {
+    proxy_pass http://127.0.0.1:8000;
+  }
+}

@@ -1,0 +1,7 @@
+---
+nginx_user: www-data
+nginx_conf_dir: /etc/nginx
+nginx_log_dir: /var/log/nginx
+
+nginx_snakeoil_crt: "{{ nginx_conf_dir }}/certs/snakeoil.crt"
+nginx_snakeoil_key: "{{ nginx_conf_dir }}/certs/snakeoil.key"
