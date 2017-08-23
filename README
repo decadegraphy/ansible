@@ -1,0 +1,10 @@
+We use Ansible to manage our server configuration. This is our Ansible
+repository.
+
+Decadegraphy is an open project. So we decided to make our configuration
+public as well, just like what Wikimedia Foudation does.
+
+
+Links:
+- Decadegraphy: https://github.com/decadegraphy/decadegraphy
+- Server configuration of WMF: https://github.com/wikimedia/puppet
