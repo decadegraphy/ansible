@@ -2,6 +2,7 @@
   user:
     name: "{{ deploy_user }}"
     uid: "{{ deploy_uid }}"
+    shell: /bin/bash
 
 - name: Create systemd user directory strucuture
   file:
