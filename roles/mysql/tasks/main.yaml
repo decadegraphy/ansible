@@ -1,0 +1,7 @@
+- name: Install MariaDB server
+  apt:
+    name: mariadb-server
+
+# Note: MariaDB shipped by Debian / Ubuntu has already many sane defaults set,
+# including utf8mb4-related ones. No further configuration is needed for light
+# work load.
